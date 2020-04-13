@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import com.example.persistence.mybatis.PersonMapper;
+
 @Component
 public class JobCompletionNotificationListener extends JobExecutionListenerSupport {
 
@@ -16,6 +18,9 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 
     private final JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private PersonMapper personMapper;
+    
     @Autowired
     public JobCompletionNotificationListener(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -27,9 +32,12 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
             log.info("!!! JOB FINISHED! Time to verify the results");
 
             jdbcTemplate
-                    .query("SELECT first_name, last_name FROM people",
+                    .query("SELECT FIRST_NAME, LAST_NAME FROM PEOPLE",
                             (rs, row) -> new Person(rs.getString(1), rs.getString(2)))
                     .forEach(person -> log.info("Found <" + person + "> in the database."));
+            
+            System.out.println("mapper test");
+            personMapper.findAll().forEach(System.out::println);
         }
     }
 }

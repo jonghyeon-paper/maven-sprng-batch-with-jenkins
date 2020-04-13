@@ -15,6 +15,7 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -28,7 +29,7 @@ public class BatchConfiguration {
 
     @Autowired
     public StepBuilderFactory stepBuilderFactory;
- // end::setup[]
+    // end::setup[]
 
     // tag::readerwriterprocessor[]
     @Bean
@@ -50,10 +51,10 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public JdbcBatchItemWriter<Person> writer(DataSource dataSource) {
+    public JdbcBatchItemWriter<Person> writer(@Qualifier("bsinessDataSource") DataSource dataSource) {
         return new JdbcBatchItemWriterBuilder<Person>()
             .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-            .sql("INSERT INTO people (first_name, last_name) VALUES (:firstName, :lastName)")
+            .sql("INSERT INTO Z_TEST_PEOPLE (FIRST_NAME, LAST_NAME) VALUES (:firstName, :lastName)")
             .dataSource(dataSource)
             .build();
     }
