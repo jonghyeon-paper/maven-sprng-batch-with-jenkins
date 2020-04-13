@@ -30,7 +30,7 @@ public class DataSourceConfig {
         return db;
     }
     
-    @Bean(value = "bsinessDataSource")
+    @Bean(value = "businessDataSource")
     public DataSource dataSource2() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getProperty("business.datasource.driver"));

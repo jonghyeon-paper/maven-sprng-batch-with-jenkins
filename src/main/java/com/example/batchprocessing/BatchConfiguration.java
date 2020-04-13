@@ -51,7 +51,7 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public JdbcBatchItemWriter<Person> writer(@Qualifier("bsinessDataSource") DataSource dataSource) {
+    public JdbcBatchItemWriter<Person> writer(@Qualifier("businessDataSource") DataSource dataSource) {
         return new JdbcBatchItemWriterBuilder<Person>()
             .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
             .sql("INSERT INTO Z_TEST_PEOPLE (FIRST_NAME, LAST_NAME) VALUES (:firstName, :lastName)")

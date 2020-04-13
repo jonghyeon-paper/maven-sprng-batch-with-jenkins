@@ -23,7 +23,7 @@ public class MybatisConfig {
     private ApplicationContext applicationContext;
 
     @Bean
-    public SqlSessionFactory sessionFactory(@Qualifier("bsinessDataSource")DataSource dataSource) throws Exception {
+    public SqlSessionFactory sessionFactory(@Qualifier("businessDataSource")DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
         sqlSessionFactoryBean.setConfigurationProperties(this.mybatisProperties());
@@ -34,7 +34,7 @@ public class MybatisConfig {
     }
 
     @Bean
-    public DataSourceTransactionManager transactionManager(@Qualifier("bsinessDataSource")DataSource dataSource) {
+    public DataSourceTransactionManager transactionManager(@Qualifier("businessDataSource")DataSource dataSource) {
         DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
         return transactionManager;
     }
